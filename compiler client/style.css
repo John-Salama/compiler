@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: linear-gradient(
+    to right,
+    rgba(16, 79, 135, 0.5),
+    rgba(255, 207, 64, 0.5)
+  );
+}
+
+/* ************************************************************************** */
+
+.header {
+  padding: 2rem 15rem;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 4rem;
+  height: 4rem;
+}
+
+.logo-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-left: 1rem;
+}
+
+/* ************************************************************************** */
+.title {
+  margin: 4rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.title-img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.title-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* ************************************************************************** */
+
+.code-container {
+  margin: 4rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.submit-section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+.code-box {
+  width: 50rem;
+  height: 30rem;
+  font-size: 2rem;
+  background-color: #ddd;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  padding: 2rem 2rem;
+  resize: none;
+}
+
+.glow-on-hover {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: normal;
+  min-height: 4rem;
+  min-width: 0;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 1rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(45deg, #002bff, #fffb00, #002bff, #fffb00);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:active:before {
+  content: "";
+  background: linear-gradient(45deg, #fffb00, #002bff, #fffb00, #002bff);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
