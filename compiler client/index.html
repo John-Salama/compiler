@@ -8,19 +8,28 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="/script.js"></script>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+    <link rel="stylesheet" href="codemirror/theme/material-darker.css" />
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/clike/clike.js"></script>
+    <script src="codemirror/mode/python/python.js"></script>
+    <script src="codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="codemirror/addon/edit/closebrackets.js"></script>
   </head>
   <body>
     <header class="header">
       <dev class="header-bar">
-        <img src="img/logo.svg" alt="logo" class="logo" />
+        <img src="./img/logo.svg" alt="logo" class="logo" />
         <span class="logo-text">CodeConvert</span>
       </dev>
     </header>
     <main>
       <div class="title">
-        <img src="/img/c++.svg" alt="c++" class="title-img" />
+        <img src="./img/c++.svg" alt="c++" class="title-img" />
         <span class="title-text">C++ to Python Converter</span>
-        <img src="/img/python.svg" alt="python" class="title-img" />
+        <img src="./img/python.svg" alt="python" class="title-img" />
       </div>
       <div class="code-container">
         <textarea type="textarea" class="code-box input"></textarea>

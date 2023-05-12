@@ -88,13 +88,16 @@ body {
   height: 30rem;
   font-size: 1.5rem;
   background-color: #1f1f1f;
-  border-radius: 1.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   border: none;
   outline: none;
   padding: 2rem 2rem;
   resize: none;
   color: #fff;
+}
+
+.CodeMirror {
+  border-radius: 1.5rem;
 }
 
 .glow-on-hover {
