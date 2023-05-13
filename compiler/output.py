@@ -9,3 +9,7 @@ elif j>2  or  j>8:
     x = 7
 else:
     x = 5
+if x == 5:
+    x =  6
+else:
+    x =  5

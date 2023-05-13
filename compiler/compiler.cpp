@@ -19,7 +19,7 @@ void error(string message) {
     exit(1);
 }
 
-string extractCondition(string cppStatment){
+vector<size_t> extractCondition(string cppStatment){
 int count = 0;
     if(cppStatment.find("(") != string::npos){
         count++;
@@ -33,14 +33,17 @@ int count = 0;
             count--;
         }
         if(count == 0){
-            return cppStatment.substr(bodyStartIndex, i - bodyStartIndex);
+            return {bodyStartIndex, (size_t)i};
         }
     }
-    return "";
+    return {};
 }
 
-vector<string> extractCode(string cppCode){
-    int count = 0;
+vector<string> extractCode(string cppCode , size_t conditionEndIndex){
+    int count = 0;   
+    if(cppCode.substr(conditionEndIndex + 1, 1) != "{"){
+        return {cppCode.substr(conditionEndIndex + 1, cppCode.find(";") - conditionEndIndex)+"\n", extractRest(cppCode, cppCode.find(";") + 1)};
+    }
     if(cppCode.find("{") != string::npos){
         count++;
     }
@@ -113,11 +116,13 @@ string formatter(string code){
 
 string convertStatment(string cppStatment, string statmentType)
 {   
+    vector<size_t> conditionExpressionIndecis = {};
     string conditionExpression = "";
     if(statmentType == "if" || statmentType == "else if" || statmentType == "while")
     {
     // extract the condition expression
-    conditionExpression = extractCondition(cppStatment);
+    conditionExpressionIndecis = extractCondition(cppStatment);
+    conditionExpression = cppStatment.substr(conditionExpressionIndecis[0], conditionExpressionIndecis[1] - conditionExpressionIndecis[0]);
 
     // check if the condition expression is valid
     if (checkCondition(conditionExpression)) {
@@ -126,11 +131,16 @@ string convertStatment(string cppStatment, string statmentType)
     }
 
     // extract the body and the rest of the code of the if statement
-    vector<string> code = extractCode(cppStatment);
+    vector<string> code = {};
+    if(statmentType != "else")
+        code = extractCode(cppStatment, conditionExpressionIndecis[1]);
+    else
+        code = extractCode(cppStatment, 3);
     string body = code[0];
     string restOfCode = code[1];
     body = removeDataTypes(body);
     body = translate(body);
+    
 
     cppStatment = removeWhiteSpace(cppStatment);
 
@@ -159,7 +169,6 @@ string convertStatment(string cppStatment, string statmentType)
         pos += 2;
     }
     pythonCode += "    " + body ;
-
     for(int i =0;i<pythonCode.size();i++)
         if(pythonCode[i]==';')
             pythonCode.erase(i,1);
