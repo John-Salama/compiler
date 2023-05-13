@@ -72,6 +72,29 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  align-items: flex-end;
+}
+
+.download {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin: -40px -60px;
+  position: absolute;
+  filter: invert(100%);
+  z-index: 5;
+  visibility: hidden;
+}
+
+.copy {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin: -39px -120px;
+  position: absolute;
+  filter: invert(100%);
+  z-index: 5;
+  visibility: hidden;
 }
 
 .submit-section {
