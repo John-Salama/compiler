@@ -79,7 +79,7 @@ body {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin: -40px -60px;
+  margin: -40px -80px;
   position: absolute;
   filter: invert(100%);
   z-index: 5;
@@ -90,7 +90,7 @@ body {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-  margin: -39px -120px;
+  margin: -39px -140px;
   position: absolute;
   filter: invert(100%);
   z-index: 5;
