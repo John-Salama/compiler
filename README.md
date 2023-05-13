@@ -2,7 +2,7 @@
 
 This is a program that translates C++ statements (while, assignment statement, if/else if/else) to Python. It consists of a C++ program and a Node.js server.
 
-![website](https://github.com/John-Salama/cpp_python_translator/assets/89663721/9e132747-4fa9-4003-8377-5c2940ceb89d)
+![webssite](https://github.com/John-Salama/cpp_python_translator/assets/89663721/8be6a945-4e2e-4910-9cb1-1eec3fff1d2c)
 
 ## How it works
 
