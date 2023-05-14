@@ -42,6 +42,8 @@ int count = 0;
 vector<string> extractCode(string cppCode , size_t conditionEndIndex){
     int count = 0;   
     if(cppCode.substr(conditionEndIndex + 1, 1) != "{"){
+        if(cppCode.find(";")==string::npos)
+            error("statment without body");
         return {cppCode.substr(conditionEndIndex + 1, cppCode.find(";") - conditionEndIndex)+"\n", extractRest(cppCode, cppCode.find(";") + 1)};
     }
     if(cppCode.find("{") != string::npos){
