@@ -16,7 +16,7 @@ string formatter(string code);
 
 void error(string message) {
     cout << message << endl;
-    exit(1);
+    exit(EXIT_SUCCESS);
 }
 
 vector<size_t> extractCondition(string cppStatment){

@@ -10,5 +10,6 @@ while(true){
 }else if(j>2 || j>8){
 	x=7;
 }else{
-	x=5;
+	if(x==5)
+        x=6;
 }
