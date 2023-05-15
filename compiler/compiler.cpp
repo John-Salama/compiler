@@ -130,6 +130,7 @@ string convertStatment(string cppStatment, string statmentType)
     if (checkCondition(conditionExpression)) {
         error("error in condition expression");
     }
+    conditionExpression = removeWhiteSpace(conditionExpression);
     }
 
     // extract the body and the rest of the code of the if statement
