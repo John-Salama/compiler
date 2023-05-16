@@ -15,7 +15,7 @@ string formatter(string code);
 /* ******************************* HELPERS ******************************************* */
 
 void error(string message) {
-    cout << message << endl;
+    cout << message;
     exit(EXIT_SUCCESS);
 }
 
@@ -69,7 +69,7 @@ string extractRest(string cppCode, int restOfTheCodeStartindex){
 }
 
 bool checkCondition(string condition){
-    regex conditionRegex("^\\s*(\\()?[\\w\\d\\+\\-\\*/%<>=!&|()\\s]+(\\))?(\\s*(&&|\\|\\|)\\s*(\\()?[\\w\\d\\+\\-\\*/%<>=!&|()\\s]+(\\))?)?\\s*$");
+    regex conditionRegex("^\\s*([\\w\\d+\\-*/%<>=!&|()\\s]+(\\s*(&&|\\|\\|)\\s*)?)+\\s*$");
     return !regex_match(condition, conditionRegex);
 }
 
@@ -128,7 +128,7 @@ string convertStatment(string cppStatment, string statmentType)
 
     // check if the condition expression is valid
     if (checkCondition(conditionExpression)) {
-        error("error in condition expression");
+        error("Error in condition expression");
     }
     conditionExpression = removeWhiteSpace(conditionExpression);
     }
@@ -139,6 +139,8 @@ string convertStatment(string cppStatment, string statmentType)
         code = extractCode(cppStatment, conditionExpressionIndecis[1]);
     else
         code = extractCode(cppStatment, 3);
+    if(code.size() == 0)
+        error("Error in the body of the statment");
     string body = code[0];
     string restOfCode = code[1];
     body = removeDataTypes(body);
@@ -175,53 +177,71 @@ string convertStatment(string cppStatment, string statmentType)
     for(int i =0;i<pythonCode.size();i++)
         if(pythonCode[i]==';')
             pythonCode.erase(i,1);
-
-    string translatedCode = translate(restOfCode);
+    string translatedCode = "";
+    if(restOfCode != "")
+        translatedCode = translate(restOfCode);
     if(translatedCode != ""){
         pythonCode += "\n" + translatedCode;
     }
     return pythonCode;
 }
 
-string convertAssignmentStatement(string cppAssignmentStatement) {
+bool checkValidAssignmentStatement(string cppStatment)
+{
     // remove any leading/trailing white space
-    cppAssignmentStatement = cppAssignmentStatement.erase(0, cppAssignmentStatement.find_first_not_of(" \t\r\n"));
-    cppAssignmentStatement = cppAssignmentStatement.erase(cppAssignmentStatement.find_last_not_of(" \t\r\n") + 1);
+    cppStatment = cppStatment.erase(0, cppStatment.find_first_not_of(" \t\r\n"));
+    cppStatment = cppStatment.erase(cppStatment.find_last_not_of(" \t\r\n") + 1);
 
     // check if the statement contains an equal sign
-    if (cppAssignmentStatement.find("=") == string::npos) {
-        return "";
+    if (cppStatment.find("=") == string::npos) {
+        return false;
     }
     // extract the variable name
-    size_t variableEndIndex = cppAssignmentStatement.find("=");
-    string variableName = cppAssignmentStatement.substr(0, variableEndIndex);
-
-
+    size_t variableEndIndex = cppStatment.find("=");
+    string variableName = cppStatment.substr(0, variableEndIndex);
+    // remove any data types
     // remove any data types
     variableName = removeDataTypes(variableName);
     variableName = removeWhiteSpace(variableName);
 
     // check if the variable name is valid
     if (checkVariableName(variableName)) {
-        error("error in variable name");
+        return false;
     }
 
     // extract the value expression
-    if(cppAssignmentStatement.find(";")==string::npos)
-        error("error in assignment statement");
-    string valueExpression = cppAssignmentStatement.substr(variableEndIndex + 1,cppAssignmentStatement.find(";")-variableEndIndex-1);
+    if(cppStatment.find(";")==string::npos)
+        return false;
+
+    string valueExpression = cppStatment.substr(variableEndIndex + 1,cppStatment.find(";")-variableEndIndex-1);
 
     // check if the value expression is valid
     if (checkValueExpression(valueExpression)) {
-        error("error in value expression");
+        return false;
     }
 
+    return true;
+}
+string convertAssignmentStatement(string cppAssignmentStatement) {
+    // remove any leading/trailing white space
+    cppAssignmentStatement = cppAssignmentStatement.erase(0, cppAssignmentStatement.find_first_not_of(" \t\r\n"));
+    cppAssignmentStatement = cppAssignmentStatement.erase(cppAssignmentStatement.find_last_not_of(" \t\r\n") + 1);
+    // extract the variable name
+    size_t variableEndIndex = cppAssignmentStatement.find("=");
+    string variableName = cppAssignmentStatement.substr(0, variableEndIndex);
+    // remove any data types
+    variableName = removeDataTypes(variableName);
+    variableName = removeWhiteSpace(variableName);
+    string valueExpression = cppAssignmentStatement.substr(variableEndIndex + 1,cppAssignmentStatement.find(";")-variableEndIndex-1);
     cppAssignmentStatement = cppAssignmentStatement.substr(cppAssignmentStatement.find(";")+1);
-
     // create the equivalent Python code
-    string translated = translate(cppAssignmentStatement);
-    string pythonCode = variableName + " = " + valueExpression + (translated==""?"":"\n" + translated);
+    string translated = "";
+    if(cppAssignmentStatement !="")
+    {
+        translated = translate(cppAssignmentStatement);
+    }
 
+    string pythonCode = variableName + " = " + valueExpression + (translated==""?"":"\n" + translated);
     return pythonCode;
 }
 
@@ -233,17 +253,20 @@ string translate(string code){
 
     // check if the statement starts with "if"
     if (code.substr(0, 2) == "if") {
-        translatedCode += convertStatment(code, "if");
+        translatedCode = convertStatment(code, "if");
     }else if(code.substr(0, 7) == "else if"){
-        translatedCode += convertStatment(code, "else if");
+        translatedCode = convertStatment(code, "else if");
     }else if(code.substr(0, 4) == "else"){
-        translatedCode += convertStatment(code, "else");
+        translatedCode = convertStatment(code, "else");
     }
     else if(code.substr(0, 5) == "while"){
-        translatedCode += convertStatment(code, "while");
+        translatedCode = convertStatment(code, "while");
     }
-    else{
-        translatedCode += convertAssignmentStatement(code);
+    else if(checkValidAssignmentStatement(code)){
+        translatedCode = convertAssignmentStatement(code);
+    }
+    else {
+        error("Invalid statement : " + code);
     }
     return translatedCode;
 }

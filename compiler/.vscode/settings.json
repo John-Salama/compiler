@@ -1,9 +1,13 @@
 {
   "files.associations": {
+    ".js": "\"javascript\"",
+    ".html": "\"html\"",
+    ".py": "\"python\"",
     "string": "cpp",
     "*.tcc": "cpp",
     "unordered_map": "cpp",
     "string_view": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "ostream": "cpp"
   }
 }
