@@ -16,13 +16,8 @@ The user inputs their code in the front end using HTML, CSS, and JavaScript. The
 ## How to use
 
 1. Clone the repository.
-2. Install the Node.js dependencies by running `npm install`.
-3. Open `compiler server`.
-4. Run the server by running `node app.js`.
-5. Open `compiler client/index.html` in your browser.
-6. Input your C++ code.
-7. Click "Convert".
-8. See the translated Python code.
+2. Install `node.msi` .
+3. Open `LUANCH.bat` .
 
 ## Contributing
 
