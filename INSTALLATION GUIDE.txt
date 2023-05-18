@@ -1,3 +1,4 @@
+note : the installation need an internet connection
 
 1- open node.msi file
 
