@@ -1,0 +1,4 @@
+
+1- open node.msi file
+
+2- open LUANCH.bat
