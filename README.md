@@ -2,7 +2,7 @@
 
 This is a program that translates C++ statements (while, assignment statement, if/else if/else) to Python. It consists of a C++ program and a Node.js server.
 
-![webssite](https://github.com/John-Salama/cpp_python_translator/assets/89663721/8be6a945-4e2e-4910-9cb1-1eec3fff1d2c)
+![website](https://github.com/John-Salama/cpp_python_translator/assets/89663721/43f028f7-3f48-4977-a0aa-e0fb54655bc2)
 
 ## How it works
 
@@ -16,13 +16,8 @@ The user inputs their code in the front end using HTML, CSS, and JavaScript. The
 ## How to use
 
 1. Clone the repository.
-2. Install the Node.js dependencies by running `npm install`.
-3. Open `compiler server`.
-4. Run the server by running `node app.js`.
-5. Open `compiler client/index.html` in your browser.
-6. Input your C++ code.
-7. Click "Convert".
-8. See the translated Python code.
+2. Install `node.msi` .
+3. Open `LUANCH.bat` .
 
 ## Contributing
 
